@@ -56,4 +56,10 @@ RUN composer install -q -n --no-ansi --no-dev --no-scripts --no-progress --prefe
   && php artisan optimize
 
 
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash
+
+RUN mkdir -p ./src/storage/framework/cache/data && \
+    mkdir -p ./src/storage/framework/sessions && \
+    mkdir -p ./src/storage/framework/views && \
+    mkdir -p ./src/storage/framework/testing && \
+    chmod -R 777 ./src/storage

@@ -9,6 +9,9 @@ services:
       dockerfile: ./infra/docker/php/Dockerfile
       target: ${APP_BUILD_TARGET:-development}
     volumes:
+      # - ../:./src:cached
+      # - ./src/storage/framework
+      # - ./src/vendor
       - type: bind
         source: ./src
         target: /workspace
