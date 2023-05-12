@@ -16,6 +16,7 @@ COPY --from=composer:2.4 /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update \
   && apt-get -y install --no-install-recommends \
+    nodejs npm \
     locales \
     git \
     unzip \
@@ -33,6 +34,9 @@ RUN apt-get update \
     bcmath \
   && composer config -g process-timeout 3600 \
   && composer config -g repos.packagist composer https://packagist.org
+
+RUN npm install n -g 
+RUN n 20
 
 FROM base AS development
 
@@ -56,7 +60,7 @@ RUN composer install -q -n --no-ansi --no-dev --no-scripts --no-progress --prefe
   && php artisan optimize
 
 
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 
 RUN mkdir -p ./src/storage/framework/cache/data && \
     mkdir -p ./src/storage/framework/sessions && \
