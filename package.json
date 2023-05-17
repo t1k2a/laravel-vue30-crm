@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/t1k2a/laravel-vue30-crm/issues"
   },
-  "homepage": "https://github.com/t1k2a/laravel-vue30-crm#readme"
+  "homepage": "https://github.com/t1k2a/laravel-vue30-crm#readme",
+  "dependencies": {
+    "micromodal": "^0.4.10"
+  }
 }

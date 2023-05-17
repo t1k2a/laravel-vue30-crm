@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PurchaseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,9 @@ Route::resource('items', ItemController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('customers', CustomerController::class)
+->middleware(['auth', 'verified']);
+
+Route::resource('purchases', PurchaseController::class)
 ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {
