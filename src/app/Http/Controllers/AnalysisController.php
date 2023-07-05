@@ -14,17 +14,20 @@ class AnalysisController extends Controller
         $startDate = '2022-08-01';
         $endDate = '2022-08-31';
 
+        // 1. 購買ID毎にまとめる 
         $subQuery = Order::betweenDate($startDate, $endDate) 
-        ->where('status', true)->groupBy('id') 
-        ->selectRaw('id, SUM(subtotal) as totalPerPurchase, 
-        DATE_FORMAT(created_at, "%Y%m%d") as date');
+        ->groupBy('id') 
+        ->selectRaw('id, customer_id, customer_name, SUM(subtotal) as 
+        totalPerPurchase');
 
-        $data = DB::table($subQuery)
-        ->groupBy('date')
-        ->selectRaw('date, sum(totalPerPurchase) as total')
-        ->get();
+        // 2. 会員毎にまとめて購入金額順にソートする 
+        $subQuery = DB::table($subQuery) 
+        ->groupBy('customer_id') 
+        ->selectRaw('customer_id, customer_name, sum(totalPerPurchase) 
+        as total') 
+        ->orderBy('total', 'desc')->get();
 
-        // dd($data);
+        dd($subQuery);
         return Inertia::render('Analysis');
     }
 }
